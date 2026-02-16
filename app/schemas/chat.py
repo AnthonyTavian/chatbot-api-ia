@@ -5,8 +5,7 @@ from app.models.message import MessageRole
 
 class MessageSend(BaseModel):
     message: str = Field(..., min_lenght=1, max_length=5000)
-    conversation_Id: int | None = None
-
+    conversation_id: int | None = Field(default=None, description="ID da conversa (deixe vazio para nova conversa)", examples=[None])
 class MessageResponse(BaseModel):
     id: int
     role: MessageRole

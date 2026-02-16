@@ -17,5 +17,21 @@ services:
       timeout: 5s
       retries: 5
 
+  api:
+    build: .
+    container_name: chatbot_api
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/chatbot
+      SECRET_KEY: ${SECRET_KEY}
+      GROQ_API_KEY: ${GROQ_API_KEY}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - .:/app
+
 volumes:
   postgres_data:

@@ -4,6 +4,7 @@ from app.models.user import User
 from app.models.conversation import Conversation
 from app.models.message import Message, MessageRole
 from app.services.ai_service import ai_service
+from datetime import datetime
 
 class ChatService:
     """
@@ -43,7 +44,7 @@ class ChatService:
         )
         db.add(assistant_message)
         
-        conversation.updated_at = db.func.now()
+        conversation.updated_at = datetime.utcnow()
         db.commit()
         
         return {

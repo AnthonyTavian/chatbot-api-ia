@@ -6,7 +6,7 @@ class AIService:
 
     def __init__(self):
         self.client = Groq(api_key=settings.GROQ_API_KEY)
-        self.model = "llama-3.1-70b-versatile"
+        self.model = "llama-3.3-70b-versatile"
 
     def get_response(self, messages: List[Dict[str, str]], temperature: float = 0.7):
            

@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# Environment
+.env
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Database
+postgres_data/
+
+# Docs
+README.md
