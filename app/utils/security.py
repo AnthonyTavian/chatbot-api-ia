@@ -5,16 +5,13 @@ import bcrypt
 from app.config import settings
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    """Verifica se a senha está correta"""
     return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
 
 def get_password_hash(password: str) -> str:
-    """Gera um hash para a senha"""
     salt = bcrypt.gensalt()
     return bcrypt.hashpw(password.encode('utf-8'), salt).decode('utf-8')
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
-    """Cria um token de acesso JWT"""
     to_encode = data.copy()
 
     if expires_delta:
@@ -28,7 +25,6 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
     return encoded_jwt
 
 def verify_token(token: str) -> Optional[str]:
-    """Verifica a validade do token JWT e retorna os dados decodificados"""
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
         email: str = payload.get("sub")
