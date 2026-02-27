@@ -7,9 +7,6 @@ from app.services.ai_service import ai_service
 from datetime import datetime
 
 class ChatService:
-    """
-    Serviço de chat que orquestra toda a lógica de conversa.
-    """
     
     def send_message(
         self, 
@@ -18,7 +15,6 @@ class ChatService:
         conversation_id: int = None, 
         db: Session = None
     ) -> Dict:
-        """Processa mensagem do usuário e retorna resposta da IA."""
         
         if conversation_id:
             conversation = self._get_user_conversation(conversation_id, user, db)
@@ -73,7 +69,6 @@ class ChatService:
         user: User,
         db: Session
     ) -> List[Message]:
-        """Busca mensagens de uma conversa."""
         conversation = self._get_user_conversation(conversation_id, user, db)
         
         return db.query(Message).filter(
@@ -88,7 +83,6 @@ class ChatService:
         user: User,
         db: Session
     ) -> bool:
-        """Deleta uma conversa."""
         conversation = self._get_user_conversation(conversation_id, user, db)
         
         db.delete(conversation)
@@ -101,10 +95,6 @@ class ChatService:
         user: User,
         db: Session
     ) -> Conversation:
-        """
-        Busca conversa que pertence ao usuário.
-        Levanta ValueError se não encontrar.
-        """
         conversation = db.query(Conversation).filter(
             Conversation.id == conversation_id,
             Conversation.user_id == user.id
@@ -116,7 +106,6 @@ class ChatService:
         return conversation
     
     def _create_conversation(self, user: User, db: Session) -> Conversation:
-        """Cria nova conversa."""
         conversation = Conversation(
             user_id=user.id,
             title="Nova Conversa"
@@ -132,10 +121,6 @@ class ChatService:
         db: Session,
         limit: int = 10
     ) -> List[Dict[str, str]]:
-        """
-        Busca histórico e formata para IA.
-        Retorna últimas N mensagens em ordem cronológica.
-        """
         messages = db.query(Message).filter(
             Message.conversation_id == conversation.id
         ).order_by(
