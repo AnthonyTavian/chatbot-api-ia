@@ -36,7 +36,6 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
 
 @router.post("/login", response_model=Token)
 def login(user_credentials: UserLogin, db: Session = Depends(get_db)):
-    """Faz login e retorna token JWT"""
     user = db.query(User).filter(User.email == user_credentials.email).first()
     
     if not user or not verify_password(user_credentials.password, user.hashed_password):
@@ -62,5 +61,4 @@ def login(user_credentials: UserLogin, db: Session = Depends(get_db)):
 
 @router.get("/me", response_model=UserSchema)
 def get_me(current_user: User = Depends(get_current_user)):
-    """Retorna dados do usuário logado"""
     return current_user
